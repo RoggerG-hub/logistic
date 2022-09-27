@@ -15,7 +15,7 @@
 					th:object="${ordenCompra}" class="form-inline">
 					<div class="form-group">
 						<label for="buscar"></label> <input type="text"
-							class="form-control" id="buscar" th:field="*{correlativo}"
+							class="form-control" id="buscar" th:field="*{codigo}"
 							required="required" placeholder="Buscar orden">
 					</div>
 
@@ -26,29 +26,21 @@
 
 					<fieldset disabled class="table">
 
-						<div class="form-group row">
-							<label for="serie" class="col-sm-2 col-form-label">Serie
-								de compra</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control" id="serie"
-									th:field="*{serie}" />
-							</div>
-						</div>
-						<p></p>
+					
 						<div class="form-group row">
 							<label for="proveedor" class="col-sm-2 col-form-label">Proveedor
 								de compra</label>
 							<div class="col-sm-6">
 								<input type="text" class="form-control" id="proveedor"
-									th:field="*{proveedor.contacto}" />
+									th:field="*{proveedor.razon}" />
 							</div>
 						</div>
 						<p></p>
 						<div class="form-group row">
-							<label for="correlativo" class="col-sm-2 col-form-label">Correlativo</label>
+							<label for="correlativo" class="col-sm-2 col-form-label">Codigo de orden</label>
 							<div class="col-sm-6">
 								<input type="text" class="form-control" id="correlativo"
-									th:field="*{correlativo}" />
+									th:field="*{codigo}" />
 							</div>
 						</div>
 					</fieldset>

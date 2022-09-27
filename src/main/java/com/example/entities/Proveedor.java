@@ -1,14 +1,12 @@
 package com.example.entities;
 
-import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -27,13 +25,21 @@ public class Proveedor{
 	@NotEmpty(message = "Ingresar el numero de contacto")
 	@Column(name = "numero", nullable = false, length = 9)
 	private String numero;
+	@Size(min = 1, max = 70)
+	@NotEmpty(message = "Ingresar la razon social del proveedor")
 	@Column(name = "razon_social", nullable = false, length = 70)
 	private String razon;
+	@Size(min = 1, max = 100)
+	@NotEmpty(message = "Ingresar la dirección del proveedor")
 	@Column(name = "direccion", nullable = false, length = 100)
 	private String direccion;
+	@Size(min = 1, max = 70)
+	@NotEmpty(message = "Ingresar el contacto del proveedor")
 	@Column(name = "contacto", nullable = false, length = 70)
 	private String contacto;
-    @Email(message = "Email should be valid")
+	@Size(min=15,max = 100)
+	@NotEmpty(message = "Ingresar el correo del proveedor")
+    @Email(message = "Email no valido")
 	@Column(name = "correo", nullable = false, length = 100)
 	private String correo;
 	@Size(min = 6, max = 6)

@@ -26,7 +26,7 @@ public class CategoriaService {
 		{
 			if(buscar(c.getDescripcion()).size()==0) 
 			{
-				
+				c.setEstado(1);
 				categoriaRepository.save(c);
 
 			}else 

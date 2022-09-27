@@ -77,4 +77,16 @@ public class ProductoService {
 	{	
 		return productoRepository.findByEstado(0);
 	}
+	public boolean buscarXSku(Long p) 
+	{
+		Producto cc = encontrarProducto(p);
+		int existe = productoRepository.verificarExistencia(cc.getSku());
+		if(existe>0) 
+		{
+			return true;
+		}else 
+		{
+			return false;
+		}
+	}
 }

@@ -30,12 +30,9 @@ public class OrdenCompra {
 	@ManyToOne
 	@JoinColumn(name = "proveedor_id", nullable = false)
 	private Proveedor proveedor;
-	@NotEmpty(message = "Ingrese la serie")
-	@Column(name = "serie", nullable = false, length = 70)
-	private String serie;
-	@NotEmpty(message = "Ingrese el correlativo")
-	@Column(name = "correlativo", nullable = false, length = 70)
-	private String correlativo;
+	@NotEmpty(message = "Ingrese el codigo de compra")
+	@Column(name = "codigo", nullable = false)
+	private String codigo;
 	@Past(message = "Fecha de creacion no correcta")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -58,17 +55,13 @@ public class OrdenCompra {
 	public void setProveedor(Proveedor proveedor) {
 		this.proveedor = proveedor;
 	}
-	public String getSerie() {
-		return serie;
+
+
+	public String getCodigo() {
+		return codigo;
 	}
-	public void setSerie(String serie) {
-		this.serie = serie;
-	}
-	public String getCorrelativo() {
-		return correlativo;
-	}
-	public void setCorrelativo(String correlativo) {
-		this.correlativo = correlativo;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 	public Date getFechaR() {
 		return fechaR;
@@ -91,19 +84,18 @@ public class OrdenCompra {
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	public OrdenCompra(Long id, Proveedor proveedor, @NotEmpty(message = "Ingrese la serie") String serie,
-			@NotEmpty(message = "Ingrese el correlativo") String correlativo,
+	public OrdenCompra(Long id, Proveedor proveedor, @NotEmpty(message = "Ingrese el codigo de compra") String codigo,
 			@Past(message = "Fecha de creacion no correcta") Date fechaR, List<OrdenCompraDetalle> detalle,
 			int estado) {
 		super();
 		this.id = id;
 		this.proveedor = proveedor;
-		this.serie = serie;
-		this.correlativo = correlativo;
+		this.codigo = codigo;
 		this.fechaR = fechaR;
 		this.detalle = detalle;
 		this.estado = estado;
 	}
+	
 
 	
 }

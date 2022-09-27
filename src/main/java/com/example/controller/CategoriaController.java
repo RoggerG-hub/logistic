@@ -82,6 +82,7 @@ public class CategoriaController {
 	}
 	@PostMapping("/actualizar/categoria/{id}")
 	public String updateLibro(@PathVariable Long id, @ModelAttribute("categoria") Categoria categoria, Model model) {
+		
 		Categoria st = categoriaService.encontrarCategoria(id);
 
 		st.setId(id);
@@ -108,6 +109,7 @@ public class CategoriaController {
 	@PostMapping("/actualizar/probar/{id}")
 	public String updateCC(@PathVariable Long id, @ModelAttribute("categoria") Categoria categoria, Model model) {
 		
+		try {
 			Categoria st = categoriaService.encontrarCategoria(id);
 			LocalDate localDate = LocalDate.now();
 
@@ -118,10 +120,17 @@ public class CategoriaController {
 			st.setFechaM(java.sql.Date.valueOf(localDate));
 			st.setEstado(finCategoria.getEstado());
 			categoriaService.actualizar(st);
-		
+			model.addAttribute("categorias",categoriaService.activo());
+			model.addAttribute("mensaje", "Se modifico la categoria correctamente");
 
 
-		return "redirect:/categoria/lista";
+		} catch (Exception e) {
+			model.addAttribute("mensaje", "Debe ingresar los datos correctos");
+			model.addAttribute("categorias",categoriaService.activo());
+
+		}
+
+		return "categoria/listaC";
 
 	}
 	@GetMapping("/categoria/baja/{id}")

@@ -44,4 +44,9 @@ public class ProveedorService {
 	{
 		return proveedorRepository.save(p);
 	}
+	public Proveedor registrarProv(Proveedor p) 
+	{
+		proveedorRepository.save(p);
+		return p;
+	}
 }

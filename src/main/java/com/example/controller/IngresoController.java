@@ -52,12 +52,12 @@ public class IngresoController {
 	@PostMapping("/orden/buscar")
 	public String buscarOrden(Model model, @ModelAttribute OrdenCompra ordenCompra) {
 	
-			if(ordenCompraService.validarCantidad(ordenCompra.getCorrelativo())>0) 
+			if(ordenCompraService.validarCantidad(ordenCompra.getCodigo())>0) 
 			{
 				/*Encontrar Orden*/
-				model.addAttribute("ordenCompra", ordenCompraService.buscarOrdenCompra(ordenCompra.getCorrelativo()));
-				OrdenCompra orden = ordenCompraService.buscarOrdenCompra(ordenCompra.getCorrelativo());
-				ordenNuevo = ordenCompraService.buscarOrdenCompra(ordenCompra.getCorrelativo());
+				model.addAttribute("ordenCompra", ordenCompraService.buscarOrdenCompra(ordenCompra.getCodigo()));
+				OrdenCompra orden = ordenCompraService.buscarOrdenCompra(ordenCompra.getCodigo());
+				ordenNuevo = ordenCompraService.buscarOrdenCompra(ordenCompra.getCodigo());
 
 				model.addAttribute("detalle",ordenCompraDetalleService.encontrarOrdenCompraDetalle(orden.getId()));
 		

@@ -59,7 +59,7 @@ public class SalidaController {
 		{
 			model.addAttribute("pedido",new Pedido());
 			model.addAttribute("detalle",new PedidoDetalle());
-			model.addAttribute("mensaje", "La orden de compra no existe");
+			model.addAttribute("mensaje", "El pedido de venta no existe");
 			return "salida/buscador";
 
 		}

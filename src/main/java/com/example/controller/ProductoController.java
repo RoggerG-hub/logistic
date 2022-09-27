@@ -108,29 +108,37 @@ public class ProductoController {
 		LocalDate localDate = LocalDate.now();
 
 		try {
-			Producto st = productoService.encontrarProducto(id);
 
-			st.setId(id);
-			st.setDescripcion(producto.getDescripcion());
-			st.setSku(producto.getSku());
-			st.setStock(producto.getStock());
-			st.setUnidad(producto.getUnidad());
-			st.setAlmacen(producto.getAlmacen());
-			st.setCategoria(producto.getCategoria());
-			st.setFechaB(st.getFechaB());
-			st.setFechaR(st.getFechaR());
-			st.setFechaM(java.sql.Date.valueOf(localDate));
-			productoService.actualizar(st);
-		
+
+			if(!(productoService.buscarXSku(id))) 
+			{
+				Producto st = productoService.encontrarProducto(id);
+				st.setId(id);
+				st.setUnidad(producto.getUnidad());
+				st.setDescripcion(producto.getDescripcion());
+				st.setSku(producto.getSku());
+				st.setStock(producto.getStock());
+				st.setAlmacen(st.getAlmacen());
+				st.setCategoria(st.getCategoria());
+				st.setFechaB(st.getFechaB());
+				st.setFechaR(st.getFechaR());
+				st.setFechaM(java.sql.Date.valueOf(localDate));
+				productoService.actualizar(st);
 				model.addAttribute("mensaje", "Se actualizo los datos del producto");
 				model.addAttribute("producto", new Producto());
-			
+			}else 
+			{
+				model.addAttribute("mensaje", "Debe completar los datos del producto");
+
+			}
+		
+	
 		} catch (Exception e) {
-			// TODO: handle exception
+			model.addAttribute("mensaje", "Debe completar los datos del producto");
 		}
 
-
-		return "redirect:/producto/lista";
+		model.addAttribute("productos",productoService.activado());
+		return "producto/listaP";
 
 	}
 	@GetMapping("/producto/baja/{id}")

@@ -48,6 +48,20 @@ public class ProveedorController {
 		}
 		return "proveedor/form";
 	}
+	@PostMapping("/proveedor/registrar/cambiado")
+	public String registrarProveedorS(@Validated @ModelAttribute Proveedor proveedor, BindingResult result, Model model) {		
+		if(result.hasErrors()) {
+			return "proveedor/form";
+		}else 
+		{
+			proveedorService.registraProveedor(proveedor);
+			model.addAttribute("mensaje", "Se registro nueva proveedor");
+			model.addAttribute("proveedor", new Proveedor());
+			
+		}
+	
+		return "proveedor/form";
+	}
 	@GetMapping("/proveedor/lista")
 	public String listarProveedores(Model model) {
 		model.addAttribute("proveedores",proveedorService.listaP());

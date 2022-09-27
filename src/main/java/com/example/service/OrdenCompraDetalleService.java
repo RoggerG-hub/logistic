@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.entities.OrdenCompra;
 import com.example.entities.OrdenCompraDetalle;
+import com.example.entities.OrdenProducto;
 import com.example.entities.Producto;
 import com.example.repository.OrdenCompraDetalleRepository;
 
@@ -45,5 +47,17 @@ public class OrdenCompraDetalleService {
 			productoService.actualizar(actualizar);
 		}
 	}
-
+	public void registro(List<OrdenProducto> lista,OrdenCompra orden) 
+	{
+		
+		for(int i=0;i<lista.size();i++) 
+		{
+			OrdenCompraDetalle detalle = new OrdenCompraDetalle();
+			detalle.setProducto(lista.get(i).getProducto());
+			detalle.setCosto(lista.get(i).getPrecio());
+			detalle.setCantidad(lista.get(i).getCantidad());
+			detalle.setOrdenCompra(orden);
+			ordenCompraDetalleRepository.save(detalle);
+		}
+	}
 }

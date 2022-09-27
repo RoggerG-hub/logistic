@@ -31,7 +31,7 @@ public class OrdenCompraService {
 	}
 	public OrdenCompra buscarOrdenCompra(String correlativo) 
 	{
-		return ordenCompraRepository.findByCorrelativoContainingIgnoreCase(correlativo);
+		return ordenCompraRepository.findByCodigoContainingIgnoreCase(correlativo);
 	}
 	public int validarCantidad(String correlativo) 
 	{
@@ -40,13 +40,12 @@ public class OrdenCompraService {
 	public void cambiar(OrdenCompra o) 
 	{
 		OrdenCompra nuevo = new OrdenCompra();
-		nuevo.setCorrelativo(o.getCorrelativo());
+		nuevo.setCodigo(o.getCodigo());
 		nuevo.setDetalle(o.getDetalle());
 		nuevo.setEstado(1);
 		nuevo.setFechaR(o.getFechaR());
 		nuevo.setId(o.getId());
 		nuevo.setProveedor(o.getProveedor());
-		nuevo.setSerie(o.getSerie());
 		ordenCompraRepository.save(nuevo);
 	}
 	public int valiarEstado(OrdenCompra o) 

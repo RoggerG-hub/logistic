@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href="#">Sistema de logistica</a>
+	<a class="navbar-brand" href="#">LOGISIS</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -20,9 +20,11 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> Almacen </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" th:href="@{/almacen/nuevo}">Registrar nuevo
-							almacen</a> <a class="dropdown-item" th:href="@{/almacen/lista}">Lista
-							almacenes</a> <a class="dropdown-item" th:href="@{/almacen/lista/desactivado}">Almacenes dados de baja</a>
+						<a class="dropdown-item" th:href="@{/almacen/nuevo}">Registrar
+							nuevo almacen</a> <a class="dropdown-item"
+							th:href="@{/almacen/lista}">Lista almacenes</a> <a
+							class="dropdown-item" th:href="@{/almacen/lista/desactivado}">Almacenes
+							dados de baja</a>
 
 						<div class="dropdown-divider"></div>
 					</div></li>
@@ -59,7 +61,8 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> Proveedor </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" th:href="@{/proveedor/lista}">Ver
+						<a class="dropdown-item" th:href="@{/proveedor/nuevo}">Registrar
+							proveedor</a> <a class="dropdown-item" th:href="@{/proveedor/lista}">Ver
 							proveedores</a>
 
 
@@ -107,67 +110,33 @@
 					</div></li>
 			</div>
 
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Orden de Compra </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" th:href="@{/orden/lista}">Ver</a>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> Orden de Compra </a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" th:href="@{/orden/nuevo}">Registrar Orden</a> <a
+						class="dropdown-item" th:href="@{/orden/lista}">Ver</a>
 
 
-						<div class="dropdown-divider"></div>
-					</div></li>
+					<div class="dropdown-divider"></div>
+				</div></li>
 
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Pedido de Venta </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" th:href="@{/pedido/lista}">Ver</a>
+		
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> Ingreso Mercaderia </a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item"
+						th:href="@{'/ingreso/orden/'+ ${session.usuario.id}}">Registrar
+						ingreso</a> <a class="dropdown-item" th:href="@{/ingreso/lista}">Reporte
+						de ingresos</a>
 
+					<div class="dropdown-divider"></div>
+				</div></li>
 
-						<div class="dropdown-divider"></div>
-					</div></li>
-			<div sec:authorize="hasRole('ROLE_JEFE')">
-
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Clientes </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" th:href="@{/cliente/lista}">Ver</a>
-
-
-						<div class="dropdown-divider"></div>
-					</div></li>
-			</div>
-
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Ingreso Mercaderia </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item"
-							th:href="@{'/ingreso/orden/'+ ${session.usuario.id}}">Registrar
-							ingreso</a> <a class="dropdown-item" th:href="@{/ingreso/lista}">Reporte
-							de ingresos</a>
-
-						<div class="dropdown-divider"></div>
-					</div></li>
-
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Salida Mercaderia </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item"
-							th:href="@{'/salida/pedido/'+ ${session.usuario.id}}">Registrar
-							salida </a> <a class="dropdown-item" th:href="@{/salida/lista}">Reporte
-							de salida</a>
-
-						<div class="dropdown-divider"></div>
-					</div></li>
-
+			
 			<li class="nav-item active"><a class="nav-link font-italic">Bienvenido
 					<span class="font-italic" th:text="${session.usuario.nombres}"></span>
 			</a></li>
