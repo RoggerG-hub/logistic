@@ -28,6 +28,8 @@ public class ProductoController {
 	CategoriaService categoriaService;
 	@Autowired
 	AlmacenService almacenService;
+	Producto actualizado = new Producto();
+
 	@GetMapping("/producto/nuevo")
 	public String registrarProducto(Model model) {
 		model.addAttribute("producto", new Producto());
@@ -37,31 +39,30 @@ public class ProductoController {
 
 		return "producto/form";
 	}
+
 	@PostMapping("/producto/registrar")
-	public String registrarProducto1(@Validated @ModelAttribute Producto producto, BindingResult result, Model model) {	
+	public String registrarProducto1(@Validated @ModelAttribute Producto producto, BindingResult result, Model model) {
 		LocalDate localDate = LocalDate.now();
 		producto.setFechaB(java.sql.Date.valueOf(localDate));
 		producto.setFechaR(java.sql.Date.valueOf(localDate));
 		producto.setFechaM(java.sql.Date.valueOf(localDate));
-
+		producto.setEstado(1);
 		producto.setStock(0);
 		int rpta;
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			model.addAttribute("mensaje", "Ingrese los datos");
 			model.addAttribute("proveedores", proveedorService.listaP());
 			model.addAttribute("categorias", categoriaService.listarCategoria());
 			model.addAttribute("almacenes", almacenService.listarA());
 			return "producto/form";
 		}
-		rpta=productoService.registrarProducto(producto);
-		if(rpta>0) 
-		{
+		rpta = productoService.registrarProducto(producto);
+		if (rpta > 0) {
 			model.addAttribute("mensaje", "Ya existe una producto registrado con el mismo SKU");
 			model.addAttribute("categorias", categoriaService.listarCategoria());
 			model.addAttribute("almacenes", almacenService.listarA());
 
-		}else 
-		{
+		} else {
 
 			productoService.registrarProducto(producto);
 			model.addAttribute("mensaje", "Se registro el producto");
@@ -72,27 +73,31 @@ public class ProductoController {
 		}
 		return "producto/form";
 	}
+
 	@GetMapping("/producto/lista")
 	public String listarProductos(Model model) {
-		model.addAttribute("productos",productoService.activado());
+		model.addAttribute("productos", productoService.activado());
 		return "producto/listaP";
 	}
+
 	@GetMapping("/producto/desactivado")
 	public String listarProductosD(Model model) {
-		model.addAttribute("productos",productoService.desactivado());
+		model.addAttribute("productos", productoService.desactivado());
 		return "producto/desactivado";
 	}
+
 	@GetMapping("/producto/edit/{id}")
 	public String editP(@PathVariable Long id, Model model) {
 		Producto st = productoService.encontrarProducto(id);
-
+		actualizado = st;
 		model.addAttribute("producto", st);
 		model.addAttribute("categorias", categoriaService.listarCategoria());
 		model.addAttribute("almacenes", almacenService.listarA());
 		return "producto/update";
 	}
+
 	@GetMapping("/producto/delete/{id}")
-	public String deleteProducto( Model model,@PathVariable Long id) {
+	public String deleteProducto(Model model, @PathVariable Long id) {
 		try {
 			productoService.eliminarProducto(id);
 
@@ -100,49 +105,62 @@ public class ProductoController {
 			model.addAttribute("mensaje", "El producto no se puede eliminar");
 
 		}
-		model.addAttribute("productos",productoService.activado());
+		model.addAttribute("productos", productoService.activado());
 		return "producto/listaP";
 	}
+	
 	@PostMapping("/producto/actualizar/{id}")
-	public String updateLibro(@PathVariable Long id, @ModelAttribute("producto") Producto producto, Model model) {
+	public String updateLibro(@Validated @PathVariable Long id, @ModelAttribute("producto") Producto producto,
+			BindingResult result, Model model) {
 		LocalDate localDate = LocalDate.now();
+		if (result.hasErrors()) {
+			model.addAttribute("mensaje", "Debe completar los datos del producto");
+			model.addAttribute("producto", actualizado);
+			model.addAttribute("categorias", categoriaService.listarCategoria());
+			model.addAttribute("almacenes", almacenService.listarA());
+			return "producto/update";
+		}else 
+		{
+			Producto st = productoService.encontrarProducto(id);
+			st.setUnidad(producto.getUnidad());
+			st.setDescripcion(producto.getDescripcion());
+			actualizado=st;
+			st=actualizado;
+			try {
 
-		try {
-
-
-			if(!(productoService.buscarXSku(id))) 
-			{
-				Producto st = productoService.encontrarProducto(id);
 				st.setId(id);
-				st.setUnidad(producto.getUnidad());
-				st.setDescripcion(producto.getDescripcion());
-				st.setSku(producto.getSku());
+				st.setSku(st.getSku());
 				st.setStock(producto.getStock());
 				st.setAlmacen(st.getAlmacen());
 				st.setCategoria(st.getCategoria());
 				st.setFechaB(st.getFechaB());
 				st.setFechaR(st.getFechaR());
 				st.setFechaM(java.sql.Date.valueOf(localDate));
+				st.setEstado(1);
 				productoService.actualizar(st);
 				model.addAttribute("mensaje", "Se actualizo los datos del producto");
 				model.addAttribute("producto", new Producto());
-			}else 
-			{
-				model.addAttribute("mensaje", "Debe completar los datos del producto");
+				model.addAttribute("productos", productoService.activado());
+				return "producto/listaP";
 
+			} catch (Exception e) {
+				model.addAttribute("mensaje", "Debe completar los datos del producto");
+				model.addAttribute("producto", actualizado);
+				model.addAttribute("categorias", categoriaService.listarCategoria());
+				model.addAttribute("almacenes", almacenService.listarA());
+				return "producto/update";
 			}
-		
-	
-		} catch (Exception e) {
-			model.addAttribute("mensaje", "Debe completar los datos del producto");
+			
 		}
 
-		model.addAttribute("productos",productoService.activado());
-		return "producto/listaP";
+			
 
+		
+		
 	}
+
 	@GetMapping("/producto/baja/{id}")
-	public String bajaP( Model model,@PathVariable Long id) {
+	public String bajaP(Model model, @PathVariable Long id) {
 		try {
 			productoService.dar_baja(id);
 			model.addAttribute("mensaje", "Se dio de baja el producto");
@@ -151,20 +169,50 @@ public class ProductoController {
 			model.addAttribute("mensaje", "No se pudo dar de baja el producto");
 
 		}
-		model.addAttribute("productos",productoService.activado());
+		model.addAttribute("productos", productoService.activado());
 		return "producto/listaP";
 	}
+
 	@GetMapping("/producto/activar/{id}")
-	public String activaP( Model model,@PathVariable Long id) {
+	public String activaP(Model model, @PathVariable Long id) {
 		try {
 			productoService.activar(id);
-			model.addAttribute("mensaje", "Se activo el producto");
+			model.addAttribute("mensaje", "Se activó el producto");
 
 		} catch (Exception e) {
 			model.addAttribute("mensaje", "No se pudo activar el producto");
 
 		}
-		model.addAttribute("productos",productoService.desactivado());
+		model.addAttribute("productos", productoService.desactivado());
 		return "producto/desactivado";
 	}
+	@PostMapping("/producto/act")
+	public String actP(@Validated @ModelAttribute Producto producto, BindingResult result, Model model) 
+	{					
+		producto.setId(actualizado.getId());
+		producto.setSku(actualizado.getSku());
+		producto.setEstado(1);
+		producto.setFechaB(actualizado.getFechaB());
+		producto.setFechaM(actualizado.getFechaM());
+		producto.setFechaR(actualizado.getFechaR());
+		producto.setStock(actualizado.getStock());
+	
+
+			try {
+				productoService.actualizar(producto);
+				model.addAttribute("mensaje", "Se actualizo los datos del producto");
+				model.addAttribute("producto", new Producto());
+				model.addAttribute("productos", productoService.activado());
+				return "producto/listaP";
+			} catch (Exception e) {
+				model.addAttribute("mensaje", "Debe completar los datos del producto");
+				model.addAttribute("categorias", categoriaService.listarCategoria());
+				model.addAttribute("almacenes", almacenService.listarA());
+				model.addAttribute("producto", producto);
+				return "producto/update";
+			}
+		
+	}
+	
 }
+

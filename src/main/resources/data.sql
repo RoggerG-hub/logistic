@@ -32,21 +32,21 @@ DELETE FROM CLIENTES;
 INSERT INTO authorities(id,authority) VALUES(1,'ROLE_ADMIN');
 INSERT INTO authorities(id,authority) VALUES(2,'ROLE_JEFE');
 INSERT INTO authorities(id,authority) VALUES(3,'ROLE_AUXILIAR');
-INSERT INTO proveedores(ruc,numero,razon_social,direccion,contacto,correo) VALUES('AX4252','957846373','HP Company Inc.','Surco, MO','Fabricio Barrientos','proveedor1@gmail.com');
-INSERT INTO proveedores(ruc,numero,razon_social,direccion,contacto,correo) VALUES('AX4251','957842373','Lenovo Company Inc.','Surco, MO','Maikol Taboada','proveedor2@gmail.com');
-INSERT INTO proveedores(ruc,numero,razon_social,direccion,contacto,correo) VALUES('AC2142','957843373','MSI Company Inc.','Surco, MO','Juan Gutierrez','proveedor3@gmail.com');
-INSERT INTO proveedores(ruc,numero,razon_social,direccion,contacto,correo) VALUES('ASG441','954342373','Huawei Company Inc.','Surco, MO','Brayan Ortiz','proveedor4@gmail.com');
+INSERT INTO proveedores(ruc,numero,razon_social,direccion,contacto,correo) VALUES('AX42522145F','957846373','HP Company Inc.','Surco, MO','Fabricio Barrientos','proveedor1@gmail.com');
+INSERT INTO proveedores(ruc,numero,razon_social,direccion,contacto,correo) VALUES('AX4251POURH','957842373','Lenovo Company Inc.','Surco, MO','Maikol Taboada','proveedor2@gmail.com');
+INSERT INTO proveedores(ruc,numero,razon_social,direccion,contacto,correo) VALUES('AC214212FSF','957843373','MSI Company Inc.','Surco, MO','Juan Gutierrez','proveedor3@gmail.com');
+INSERT INTO proveedores(ruc,numero,razon_social,direccion,contacto,correo) VALUES('ASG441214ZZ','954342373','Huawei Company Inc.','Surco, MO','Brayan Ortiz','proveedor4@gmail.com');
 
 INSERT INTO usuarios(usu_codigo,apellidos,dni,edad,nombres,password,rol_id) VALUES(1,'Veiz','70262920',20,'Juan','$2a$10$JnHnNnoZiH1rTCXe7Qml7.Uzsm95jwdnmZLGnezGYzsQK0nFICEUG',2);
 INSERT INTO usuarios(usu_codigo,apellidos,dni,edad,nombres,password,rol_id) VALUES(2,'Cabrera','10245299',22,'Miguel','$2a$10$JnHnNnoZiH1rTCXe7Qml7.Uzsm95jwdnmZLGnezGYzsQK0nFICEUG',3);
-INSERT INTO orden_compras(codigo,fecha_registro,proveedor_id,estado) VALUES('AFF00F','2022-08-30 00:00:00',1,0);
-INSERT INTO orden_compras(codigo,fecha_registro,proveedor_id,estado) VALUES('CCC00D','2022-08-30 00:00:00',2,0);
-INSERT INTO orden_compras(codigo,fecha_registro,proveedor_id,estado) VALUES('AEF00E','2022-08-30 00:00:00',3,0);
-INSERT INTO orden_compras(codigo,fecha_registro,proveedor_id,estado) VALUES('PMJ001','2022-08-30 00:00:00',4,0);
+INSERT INTO orden_compras(codigo,fecha_registro,proveedor_id,estado) VALUES('AFF00FGE','2022-08-30 00:00:00',1,0);
+INSERT INTO orden_compras(codigo,fecha_registro,proveedor_id,estado) VALUES('CCC0320D','2022-08-30 00:00:00',2,0);
+INSERT INTO orden_compras(codigo,fecha_registro,proveedor_id,estado) VALUES('AEF3X00E','2022-08-30 00:00:00',3,0);
+INSERT INTO orden_compras(codigo,fecha_registro,proveedor_id,estado) VALUES('PMT5J001','2022-08-30 00:00:00',4,0);
 
-INSERT INTO categorias(descripcion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('Laptops gamer',1,'2022-09-10 00:00:00','2022-08-30 00:00:00','2022-08-30 00:00:00');
-INSERT INTO categorias(descripcion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('Laptops HP',1,'2022-09-10 00:00:00','2022-08-30 00:00:00','2022-08-30 00:00:00');
-INSERT INTO categorias(descripcion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('Laptops Lenovo',1,'2022-09-10 00:00:00','2022-08-30 00:00:00','2022-08-30 00:00:00');
+INSERT INTO categorias(descripcion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('Laptops gamer',1,'2022-09-10 00:00:00','30-08-2022 00:00:00','2022-08-30 00:00:00');
+INSERT INTO categorias(descripcion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('Laptops HP',1,'2022-09-10 00:00:00','30-08-2022 00:00:00','2022-08-30 00:00:00');
+INSERT INTO categorias(descripcion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('Laptops Lenovo',1,'2022-09-10 00:00:00','30-08-2022 00:00:00','2022-08-30 00:00:00');
 
 INSERT INTO almacenes(codigo,descripcion,direccion,estado,fecha_baja,fecha_creacion,fecha_modificacion) VALUES('ACDF54SC','Almacen Productos','Surco, Mo',1,'2022-09-20 00:00:00','2022-08-30 00:00:00','2022-08-30 00:00:00');
 

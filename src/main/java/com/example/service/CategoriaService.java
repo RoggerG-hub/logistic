@@ -39,7 +39,7 @@ public class CategoriaService {
 	public void deleteCategoriaById(Long id) {
 		categoriaRepository.deleteById(id);
 	}
-	private List<Categoria> buscar(String nombre) 
+	public List<Categoria> buscar(String nombre) 
 	{
 		return categoriaRepository.findByDescripcionContainingIgnoreCase(nombre);
 	}
@@ -76,5 +76,19 @@ public class CategoriaService {
 		nCategoria.setFechaB(java.sql.Date.valueOf(localDate));
 		nCategoria.setEstado(1);
 		categoriaRepository.save(nCategoria);
+	}
+	public void registrar(Categoria c) 
+	{
+		categoriaRepository.save(c);
+	}
+	public int verificar(Categoria cat) 
+	{
+		if(categoriaRepository.verificarCat(cat.getDescripcion())>0) 
+		{
+			return 1;
+		}else 
+		{
+			return 0;
+		}
 	}
 }

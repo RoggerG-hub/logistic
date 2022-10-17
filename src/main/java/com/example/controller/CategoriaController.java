@@ -46,7 +46,7 @@ public class CategoriaController {
 		}else 
 		{
 			categoriaService.registrarCategoria(categoria);
-			model.addAttribute("mensaje", "Se registro nuevo categoria");
+			model.addAttribute("mensaje", "Se registro nueva categoria");
 			model.addAttribute("categoria", new Categoria());
 		}
 			
@@ -83,27 +83,34 @@ public class CategoriaController {
 	@PostMapping("/actualizar/categoria/{id}")
 	public String updateLibro(@PathVariable Long id, @ModelAttribute("categoria") Categoria categoria, Model model) {
 		
-		Categoria st = categoriaService.encontrarCategoria(id);
-
-		st.setId(id);
-		st.setDescripcion(categoria.getDescripcion());
-		st.setFechaC(categoria.getFechaC());
-		st.setFechaB(categoria.getFechaB());
-		st.setFechaM(categoria.getFechaM());
-		int rpta;
-		rpta=categoriaService.registrarCategoria(st);
-		if(rpta>0) 
+		try {
+		if(categoriaService.verificar(categoria)==0) 
 		{
-			model.addAttribute("mensaje", "Ya existe una categoria con esa descripcion");
+			Categoria st = categoriaService.encontrarCategoria(id);
+			LocalDate localDate = LocalDate.now();
+
+			st.setId(id);
+			st.setDescripcion(categoria.getDescripcion());
+			st.setFechaC(finCategoria.getFechaC());
+			st.setFechaB(finCategoria.getFechaB());
+			st.setFechaM(java.sql.Date.valueOf(localDate));
+			st.setEstado(finCategoria.getEstado());
+			categoriaService.actualizar(st);
+			model.addAttribute("mensaje", "Se modifico la categoria correctamente");
 
 		}else 
-		{
-			categoriaService.registrarCategoria(st);
-			model.addAttribute("mensaje", "Se actualizo los datos de la categoria");
-			model.addAttribute("categoria", new Categoria());
-		}
+		{			
+			model.addAttribute("mensaje", "Ya existe una categoria con esa descripcion");
 
-		return "redirect:/categoria/lista";
+		}
+		}catch (Exception e) {
+			model.addAttribute("mensaje", "Debe ingresar los datos correctos");
+			model.addAttribute("categorias",categoriaService.activo());
+
+		}
+		model.addAttribute("categorias",categoriaService.activo());
+
+		return "categoria/listaC";
 
 	}
 	@PostMapping("/actualizar/probar/{id}")

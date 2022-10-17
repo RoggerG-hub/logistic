@@ -17,7 +17,7 @@
 					<div class="form-group row">
 						<label for="identificador" class="col-sm-2 col-form-label">Ruc</label>
 						<div class="col-sm-6">
-							<input type="text" maxlength="6" class="form-control"
+							<input type="text" maxlength="11" class="form-control"
 								id="identificador" th:field="*{ruc}" /> <small
 								class="form-text text-danger"
 								th:if="${#fields.hasErrors('ruc')}" th:errors="*{ruc}"></small>
@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="numero" class="col-sm-2 col-form-label">Número</label>
+						<label for="numero" class="col-sm-2 col-form-label">Teléfono</label>
 						<div class="col-sm-6">
 							<input type="number" maxlength="9" class="form-control"
 								id="numero" th:field="*{numero}" /> <small

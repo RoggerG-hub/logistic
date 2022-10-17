@@ -23,6 +23,26 @@ public class AlmacenService {
 		almacenRepository.save(a);
 		return a.getCodigo();
 	}
+	public int registro(Almacen a)
+	{
+		int cantidad = almacenRepository.verificarExistencia(a.getCodigo());
+		if(cantidad<=0) 
+		{
+			LocalDate localDate = LocalDate.now();
+			a.setEstado(1);
+			a.setFechaB(java.sql.Date.valueOf(localDate));
+			a.setFechaC(java.sql.Date.valueOf(localDate));
+			a.setFechaM(java.sql.Date.valueOf(localDate));
+			almacenRepository.save(a);
+			return 1;
+
+		}else 
+		{
+			return 0;
+
+		}
+		
+	}
 	public void deleteA(Long a) 
 	{
 		almacenRepository.deleteById(a);

@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,8 +31,9 @@ public class OrdenCompra {
 	@ManyToOne
 	@JoinColumn(name = "proveedor_id", nullable = false)
 	private Proveedor proveedor;
-	@NotEmpty(message = "Ingrese el codigo de compra")
-	@Column(name = "codigo", nullable = false)
+	@NotEmpty(message = "Ingrese el codigo de orden de compra")
+	@Column(name = "codigo", nullable = false,length = 8)
+	@Size(min = 8, max = 8)
 	private String codigo;
 	@Past(message = "Fecha de creacion no correcta")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -84,7 +86,8 @@ public class OrdenCompra {
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	public OrdenCompra(Long id, Proveedor proveedor, @NotEmpty(message = "Ingrese el codigo de compra") String codigo,
+	public OrdenCompra(Long id, Proveedor proveedor,
+			@NotEmpty(message = "Ingrese el codigo de compra") @Size(min = 8, max = 8) String codigo,
 			@Past(message = "Fecha de creacion no correcta") Date fechaR, List<OrdenCompraDetalle> detalle,
 			int estado) {
 		super();
@@ -95,6 +98,7 @@ public class OrdenCompra {
 		this.detalle = detalle;
 		this.estado = estado;
 	}
+	
 	
 
 	

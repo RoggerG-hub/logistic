@@ -36,7 +36,7 @@
 							<td th:text="${categoria.id}">HAMP</td>
 							<td th:text="${categoria.descripcion}">HAMP</td>
 							<td th:text="${categoria.estado}">HAMP</td>
-							<td th:text="${categoria.fechaC}">HAMP</td>
+							<td th:text="${#dates.format(categoria.fechaC, 'dd/MM/yyyy')}">HAMP</td>
 							<div sec:authorize="hasRole('ROLE_JEFE')">
 								<td><a th:href="@{'/categoria/edit/'+ ${categoria.id}}"
 									class="btn btn-success">Editar</a></td>

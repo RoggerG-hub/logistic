@@ -29,7 +29,7 @@ public class Categoria {
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 	@Past(message = "Fecha de creacion no correcta")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_creacion", nullable = false)
 	private Date fechaC;

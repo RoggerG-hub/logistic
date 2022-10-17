@@ -13,4 +13,9 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 	int verificarExistencia(String descripcion);
 	List<Categoria> findByDescripcionContainingIgnoreCase(String descripcion);
 	List<Categoria> findByEstado(int e);
+	@Query("SELECT count(c) FROM Categoria c  WHERE UPPER(c.descripcion)=UPPER(?1)")
+	int verificarCat(String descripcion);
+	@Query("SELECT count(c) FROM Categoria c  WHERE c.descripcion LIKE ?1")
+	int cantidad(String descripcion);
+
 }

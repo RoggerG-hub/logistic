@@ -25,26 +25,26 @@ public class Proveedor{
 	@NotEmpty(message = "Ingresar el numero de contacto")
 	@Column(name = "numero", nullable = false, length = 9)
 	private String numero;
-	@Size(min = 1, max = 70)
+	@Size(min = 5, max = 100)
 	@NotEmpty(message = "Ingresar la razon social del proveedor")
-	@Column(name = "razon_social", nullable = false, length = 70)
+	@Column(name = "razon_social", nullable = false, length = 100)
 	private String razon;
-	@Size(min = 1, max = 100)
+	@Size(min = 5, max = 100)
 	@NotEmpty(message = "Ingresar la dirección del proveedor")
 	@Column(name = "direccion", nullable = false, length = 100)
 	private String direccion;
-	@Size(min = 1, max = 70)
+	@Size(min = 5, max = 100)
 	@NotEmpty(message = "Ingresar el contacto del proveedor")
-	@Column(name = "contacto", nullable = false, length = 70)
+	@Column(name = "contacto", nullable = false, length = 100)
 	private String contacto;
 	@Size(min=15,max = 100)
 	@NotEmpty(message = "Ingresar el correo del proveedor")
     @Email(message = "Email no valido")
 	@Column(name = "correo", nullable = false, length = 100)
 	private String correo;
-	@Size(min = 6, max = 6)
+	@Size(min = 11, max = 11)
 	@NotEmpty(message = "Ingresar el RUC del proveedor")
-	@Column(name = "ruc", nullable = false, length = 6)
+	@Column(name = "ruc", nullable = false, length = 11)
 	private String ruc;
 	public Long getId() {
 		return id;
@@ -95,9 +95,12 @@ public class Proveedor{
 		super();
 	}
 	public Proveedor(Long id,
-			@Size(min = 9, max = 9) @NotEmpty(message = "Ingresar el numero de contacto") String numero, String razon,
-			String direccion, String contacto, @Email(message = "Email should be valid") String correo,
-			@Size(min = 6, max = 6) @NotEmpty(message = "Ingresar el RUC del proveedor") String ruc) {
+			@Size(min = 9, max = 9) @NotEmpty(message = "Ingresar el numero de contacto") String numero,
+			@Size(min = 5, max = 100) @NotEmpty(message = "Ingresar la razon social del proveedor") String razon,
+			@Size(min = 5, max = 100) @NotEmpty(message = "Ingresar la dirección del proveedor") String direccion,
+			@Size(min = 5, max = 100) @NotEmpty(message = "Ingresar el contacto del proveedor") String contacto,
+			@Size(min = 15, max = 100) @NotEmpty(message = "Ingresar el correo del proveedor") @Email(message = "Email no valido") String correo,
+			@Size(min = 11, max = 11) @NotEmpty(message = "Ingresar el RUC del proveedor") String ruc) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -107,6 +110,7 @@ public class Proveedor{
 		this.correo = correo;
 		this.ruc = ruc;
 	}
+
 
 
 }

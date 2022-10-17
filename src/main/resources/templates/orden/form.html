@@ -12,8 +12,8 @@
 		<div class="card" style="max-width: 100%;">
 			<div class="card-header">Nueva orden de compra</div>
 			<div class="card-body">
-				<form th:object="${ordenCompra}" th:action="@{/orden/registrar}"
-					th:method="post">
+				<form th:object="${ordenCompra}"
+					th:action="@{/orden/registrar}" th:method="post">
 					<div class="form-group row">
 						<label for="proveedor" class="col-sm-2 col-form-label">Proveedor</label>
 						<div class="col-sm-6">
@@ -29,7 +29,7 @@
 						<label for="correlativo" class="col-sm-2 col-form-label">Codigo
 							de compra</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" id="correlativo"
+							<input type="text"  class="form-control" id="codigo"
 								th:field="*{codigo}" /> <small class="form-text text-danger"
 								th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></small>
 						</div>
@@ -109,8 +109,8 @@
 								<label for="numero" class="col-sm-2 col-form-label">Costo
 									Unitario</label>
 								<div class="col-sm-6">
-									<input type="number" maxlength="9" class="form-control"
-										id="numero" th:field="*{precio}" />
+									<input type="number" maxlength="9" step="0.01"
+										class="form-control" id="numero" th:field="*{precio}" />
 								</div>
 							</div>
 						</div>
@@ -129,7 +129,7 @@
 	</div>
 
 
-	
+
 
 
 

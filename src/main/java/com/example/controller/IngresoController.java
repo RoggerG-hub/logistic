@@ -2,6 +2,8 @@ package com.example.controller;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,11 +38,12 @@ public class IngresoController {
 	UsuarioService usuarioService;
 	Usuario usuario = new Usuario();
 	OrdenCompra ordenNuevo = new OrdenCompra();
-
 	@GetMapping("/ingreso/orden/{id}")
 	public String nuevo(@PathVariable Long id,Model model){
 		model.addAttribute("ordenCompra",new OrdenCompra());
 		model.addAttribute("detalle",new OrdenCompraDetalle());
+		model.addAttribute("ordenes",ordenCompraService.listarOrdenesNoIngresadas());
+
 		usuario = usuarioService.encontrarUsuario(id);
 		return "ingreso/buscador";
 	}
@@ -60,12 +63,16 @@ public class IngresoController {
 				ordenNuevo = ordenCompraService.buscarOrdenCompra(ordenCompra.getCodigo());
 
 				model.addAttribute("detalle",ordenCompraDetalleService.encontrarOrdenCompraDetalle(orden.getId()));
-		
+				model.addAttribute("ordenes",ordenCompraService.listarOrdenesNoIngresadas());
+
 			}else 
 			{
 				model.addAttribute("ordenCompra",new OrdenCompra());
 				model.addAttribute("detalle",new OrdenCompraDetalle());
+				model.addAttribute("ordenes",ordenCompraService.listarOrdenesNoIngresadas());
+
 				model.addAttribute("mensaje", "La orden de compra no existe");
+				System.out.println(ordenCompra.getCodigo());
 				return "ingreso/buscador";
 			}
 
@@ -91,14 +98,17 @@ public class IngresoController {
 				model.addAttribute("mensaje", "Esta orden ya fue ingresada anteriormente");
 
 			}
-			model.addAttribute("ordenCompra", ordenNuevo);
-			model.addAttribute("detalle", ordenCompraDetalleService.encontrarOrdenCompraDetalle(ordenNuevo.getId()));
-			
+			model.addAttribute("ordenCompra",new OrdenCompra());
+			model.addAttribute("detalle",new OrdenCompraDetalle());
+			model.addAttribute("ordenes",ordenCompraService.listarOrdenesNoIngresadas());
+
 		}else 
 		{
 			model.addAttribute("mensaje", "Complete los recuadros");
 			model.addAttribute("ordenCompra", new OrdenCompra());
 			model.addAttribute("detalle", new OrdenCompraDetalle());
+			model.addAttribute("ordenes",ordenCompraService.listarOrdenesNoIngresadas());
+
 		}
 
 		return "ingreso/buscador";

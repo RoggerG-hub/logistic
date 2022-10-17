@@ -20,40 +20,44 @@ public class AlmacenController {
 	@Autowired
 	AlmacenService almacenService;
 	private Almacen almacenFin;
+
 	@GetMapping("/almacen/nuevo")
 	public String registrarA(Model model) {
 		model.addAttribute("almacen", new Almacen());
 		return "almacen/form";
 	}
+
 	@PostMapping("/almacen/registrar")
-	public String registrarA1(@Validated @ModelAttribute Almacen almacen, BindingResult result, Model model) {		
-		
-		if(result.hasErrors()) {
+	public String registrarA1(@Validated @ModelAttribute Almacen almacen, BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
 			return "almacen/form";
+		} else {
+			if (almacenService.registro(almacen) == 1) {
+				model.addAttribute("mensaje", "Se registro el almacen");
+				model.addAttribute("almacen", new Almacen());
+			} else {
+				model.addAttribute("mensaje", "Codigo de almacen repetido");
+				model.addAttribute("almacen", new Almacen());
+			}
 		}
-			LocalDate localDate = LocalDate.now();
-			almacen.setEstado(1);
-			almacen.setFechaB(java.sql.Date.valueOf(localDate));
-			almacen.setFechaC(java.sql.Date.valueOf(localDate));
-			almacen.setFechaM(java.sql.Date.valueOf(localDate));
-			almacenService.registrarA(almacen);
-			model.addAttribute("mensaje", "Se registro el almacen");
-			model.addAttribute("almacen", new Almacen());
-			
 		return "almacen/form";
 	}
+
 	@GetMapping("/almacen/lista")
 	public String listarA(Model model) {
-		model.addAttribute("almacenes",almacenService.activo());
+		model.addAttribute("almacenes", almacenService.activo());
 		return "almacen/listaA";
 	}
+
 	@GetMapping("/almacen/lista/aux")
 	public String listarX(Model model) {
-		model.addAttribute("almacenes",almacenService.listarA());
+		model.addAttribute("almacenes", almacenService.listarA());
 		return "almacen/listaAux";
 	}
+
 	@GetMapping("/almacen/delete/{id}")
-	public String deleteA(Model model,@PathVariable Long id) {
+	public String deleteA(Model model, @PathVariable Long id) {
 		try {
 			almacenService.deleteA(id);
 
@@ -63,14 +67,16 @@ public class AlmacenController {
 		}
 		return "redirect:/almacen/lista";
 	}
+
 	@GetMapping("/almacen/edit/{id}")
 	public String editA(@PathVariable Long id, Model model) {
 		Almacen st = almacenService.encontrarAlmacen(id);
-		almacenFin=st;
+		almacenFin = st;
 		model.addAttribute("almacen", st);
 
 		return "almacen/update";
 	}
+
 	@PostMapping("/actualizar/almacen/{id}")
 	public String updateAl(@PathVariable Long id, @ModelAttribute("almacen") Almacen almacen, Model model) {
 		LocalDate localDate = LocalDate.now();
@@ -94,13 +100,14 @@ public class AlmacenController {
 			model.addAttribute("mensaje", "Debe ingresar los datos correctos");
 
 		}
-		model.addAttribute("almacenes",almacenService.listarA());
+		model.addAttribute("almacenes", almacenService.listarA());
 
 		return "almacen/listaA";
 
 	}
+
 	@GetMapping("/almacen/baja/{id}")
-	public String baja(Model model,@PathVariable Long id) {
+	public String baja(Model model, @PathVariable Long id) {
 
 		try {
 			almacenService.dar_baja(id);
@@ -110,12 +117,13 @@ public class AlmacenController {
 			model.addAttribute("mensaje", "No fue posible dar de baja el almacen");
 
 		}
-		model.addAttribute("almacenes",almacenService.activo());
+		model.addAttribute("almacenes", almacenService.activo());
 
 		return "almacen/listaA";
 	}
+
 	@GetMapping("/almacen/activar/{id}")
-	public String activar(Model model,@PathVariable Long id) {
+	public String activar(Model model, @PathVariable Long id) {
 
 		try {
 			almacenService.activar(id);
@@ -125,13 +133,14 @@ public class AlmacenController {
 			model.addAttribute("mensaje", "No fue posible activar el almacen");
 
 		}
-		model.addAttribute("almacenes",almacenService.desactivo());
+		model.addAttribute("almacenes", almacenService.desactivo());
 
 		return "almacen/activar";
 	}
+
 	@GetMapping("/almacen/lista/desactivado")
 	public String listadoDesactivado(Model model) {
-		model.addAttribute("almacenes",almacenService.desactivo());
+		model.addAttribute("almacenes", almacenService.desactivo());
 		return "almacen/activar";
 	}
 }

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ public class OrdenCompraService {
 	public List<OrdenCompra> listarOrdenes()
 	{
 		return ordenCompraRepository.findAll();
+	}
+	public List<OrdenCompra> listarOrdenesNoIngresadas()
+	{
+		return ordenCompraRepository.findByEstado(0);
 	}
 	public Long registrarOrden(OrdenCompra o) 
 	{
@@ -57,5 +62,19 @@ public class OrdenCompraService {
 		{
 			return 0;
 		}
+	}
+	public String aleatorio() 
+	{
+	    String banco = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+	    String cadena = "";
+	    for (int x = 0; x < 8; x++) {
+	        int indiceAleatorio = numeroAleatorioEnRango(0, banco.length() - 1);
+	        char caracterAleatorio = banco.charAt(indiceAleatorio);
+	        cadena += caracterAleatorio;
+	    }
+		return cadena;
+	}
+	public static int numeroAleatorioEnRango(int minimo, int maximo) {
+	    return ThreadLocalRandom.current().nextInt(minimo, maximo + 1);
 	}
 }

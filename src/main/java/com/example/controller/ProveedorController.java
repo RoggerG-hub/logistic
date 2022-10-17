@@ -42,7 +42,7 @@ public class ProveedorController {
 		}else 
 		{
 			proveedorService.registraProveedor(proveedor);
-			model.addAttribute("mensaje", "Se registro nueva proveedor");
+			model.addAttribute("mensaje", "Se registro nuevo proveedor");
 			model.addAttribute("proveedor", new Proveedor());
 			
 		}
