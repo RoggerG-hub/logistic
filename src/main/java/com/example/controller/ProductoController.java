@@ -50,7 +50,6 @@ public class ProductoController {
 		producto.setStock(0);
 		int rpta;
 		if (result.hasErrors()) {
-			model.addAttribute("mensaje", "Ingrese los datos");
 			model.addAttribute("proveedores", proveedorService.listaP());
 			model.addAttribute("categorias", categoriaService.listarCategoria());
 			model.addAttribute("almacenes", almacenService.listarA());
@@ -58,7 +57,7 @@ public class ProductoController {
 		}
 		rpta = productoService.registrarProducto(producto);
 		if (rpta > 0) {
-			model.addAttribute("mensaje", "Ya existe una producto registrado con el mismo SKU");
+			model.addAttribute("mensaje", "Ya existe un producto registrado con el mismo SKU");
 			model.addAttribute("categorias", categoriaService.listarCategoria());
 			model.addAttribute("almacenes", almacenService.listarA());
 
