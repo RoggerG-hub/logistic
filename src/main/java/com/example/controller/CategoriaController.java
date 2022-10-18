@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.entities.Almacen;
 import com.example.entities.Categoria;
 import com.example.service.CategoriaService;
 
@@ -81,7 +82,7 @@ public class CategoriaController {
 		return "redirect:/categoria/lista";
 	}
 	@PostMapping("/actualizar/categoria/{id}")
-	public String updateLibro(@PathVariable Long id, @ModelAttribute("categoria") Categoria categoria, Model model) {
+	public String updateLibro(@Validated @PathVariable Long id, @ModelAttribute("categoria") Categoria categoria, Model model) {
 		
 		try {
 		if(categoriaService.verificar(categoria)==0) 
@@ -104,14 +105,54 @@ public class CategoriaController {
 
 		}
 		}catch (Exception e) {
+			categoria.setId(finCategoria.getId());
+			categoria.setFechaC(finCategoria.getFechaC());
+			categoria.setFechaB(finCategoria.getFechaB());
+			categoria.setFechaM(finCategoria.getFechaM());
+			categoria.setEstado(finCategoria.getEstado());
 			model.addAttribute("mensaje", "Debe ingresar los datos correctos");
-			model.addAttribute("categorias",categoriaService.activo());
+			model.addAttribute("categoria",categoria);
+			return "categoria/update";
 
 		}
 		model.addAttribute("categorias",categoriaService.activo());
 
 		return "categoria/listaC";
 
+	}
+	@PostMapping("/actualizar/categoria/nuevo")
+	public String actA(@Validated @ModelAttribute Categoria categoria, BindingResult result, Model model) 
+	{					
+		categoria.setId(finCategoria.getId());
+		categoria.setFechaC(finCategoria.getFechaC());
+		categoria.setFechaB(finCategoria.getFechaB());
+		categoria.setFechaM(finCategoria.getFechaM());
+		categoria.setEstado(finCategoria.getEstado());
+	
+		LocalDate localDate = LocalDate.now();
+
+			try {
+			
+				if(categoriaService.verificar(categoria)==0) 
+				{
+					categoria.setFechaM(java.sql.Date.valueOf(localDate));
+					categoriaService.actualizar(categoria);
+					model.addAttribute("mensaje", "Se modifico la categoria correctamente");
+					model.addAttribute("categorias",categoriaService.activo());
+					return "categoria/listaC";
+
+				}else 
+				{			
+					model.addAttribute("mensaje", "Ya existe una categoria con esa descripcion");
+					model.addAttribute("categoria",categoria);
+					return "categoria/update";
+				}
+			} catch (Exception e) {
+				model.addAttribute("mensaje", "Debe ingresar los datos correctos");
+				model.addAttribute("categoria",categoria);
+				return "categoria/update";
+			}
+		
 	}
 	@PostMapping("/actualizar/probar/{id}")
 	public String updateCC(@PathVariable Long id, @ModelAttribute("categoria") Categoria categoria, Model model) {

@@ -10,21 +10,25 @@
 	<div class="container">
 		<br></br>
 		<div class="card" style="max-width: 100%;">
-			<div class="card-header">Nuevo Almacen</div>
+			<div class="card-header">Modificar Almacen</div>
 			<div class="card-body">
 				<form th:object="${almacen}"
-					th:action="@{'/actualizar/almacen/'+ ${almacen.id}}"
+					th:action="@{/almacen/act}"
 					th:method="post">
-					<div class="form-group row">
-						<label for="codigo" class="col-sm-2 col-form-label">Codigo
-							de almacen</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="codigo"
-								th:field="*{codigo}" /> <small class="form-text text-danger"
-								th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></small>
-						</div>
-					</div>
+					<fieldset disabled class="table">
 
+						<div class="form-group row">
+
+							<label for="sku" class="col-sm-2 col-form-label">Codigo
+							de almacen</label>
+							<div class="col-sm-6">
+
+								<input type="text" class="form-control" id="disabledTextInput"
+									th:value="${codigo}" th:placeholder="*{codigo}" />
+							</div>
+						</div>
+
+					</fieldset>
 					<div class="form-group row">
 						<label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
 						<div class="col-sm-6">
@@ -40,8 +44,7 @@
 						<label for="direccion" class="col-sm-2 col-form-label">Dirección</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="direccion"
-								th:field="*{direccion}" /> <small
-								class="form-text text-danger"
+								th:field="*{direccion}" /> <small class="form-text text-danger"
 								th:if="${#fields.hasErrors('direccion')}"
 								th:errors="*{direccion}"></small>
 						</div>

@@ -18,7 +18,7 @@
 						<label for="codigo" class="col-sm-2 col-form-label">Codigo
 							de almacen</label>
 						<div class="col-sm-6">
-							<input type="text" maxlength="8" class="form-control" id="codigo"
+							<input type="text" class="form-control" id="codigo"
 								th:field="*{codigo}" /> <small class="form-text text-danger"
 								th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></small>
 						</div>

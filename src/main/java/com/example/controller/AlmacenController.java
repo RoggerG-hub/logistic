@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.entities.Almacen;
+import com.example.entities.Producto;
 import com.example.service.AlmacenService;
 
 @Controller
 public class AlmacenController {
 	@Autowired
 	AlmacenService almacenService;
+	private Almacen actualizado;
 	private Almacen almacenFin;
 
 	@GetMapping("/almacen/nuevo")
@@ -73,7 +75,7 @@ public class AlmacenController {
 		Almacen st = almacenService.encontrarAlmacen(id);
 		almacenFin = st;
 		model.addAttribute("almacen", st);
-
+		actualizado = st;
 		return "almacen/update";
 	}
 
@@ -105,7 +107,30 @@ public class AlmacenController {
 		return "almacen/listaA";
 
 	}
+	@PostMapping("/almacen/act")
+	public String actA(@Validated @ModelAttribute Almacen almacen, BindingResult result, Model model) 
+	{					
+		almacen.setId(actualizado.getId());
+		almacen.setCodigo(actualizado.getCodigo());
+		almacen.setEstado(1);
+		almacen.setFechaB(actualizado.getFechaB());
+		almacen.setFechaM(actualizado.getFechaM());
+		almacen.setFechaC(actualizado.getFechaC());
+	
 
+			try {
+				almacenService.actualizarAlmacen(almacen);
+				model.addAttribute("mensaje", "Se actualizo los datos del almacen");
+				model.addAttribute("almacen", new Almacen());
+				model.addAttribute("almacenes", almacenService.listarA());
+				return "almacen/listaA";
+			} catch (Exception e) {
+				model.addAttribute("mensaje", "Debe completar los datos del almacen");
+				model.addAttribute("almacen", almacen);
+				return "almacen/update";
+			}
+		
+	}
 	@GetMapping("/almacen/baja/{id}")
 	public String baja(Model model, @PathVariable Long id) {
 
